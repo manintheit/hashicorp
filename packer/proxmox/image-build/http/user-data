@@ -1,0 +1,48 @@
+#cloud-config
+autoinstall:
+  version: 1
+  # network:
+  #   ethernets:
+  #     ens18:
+  #       addresses:
+  #       - 10.139.81.10/24
+  #       routes:
+  #         - to: default
+  #           via: 10.139.81.254
+  #       nameservers:
+  #         addresses:
+  #         - 10.139.81.252
+  #         search:
+  #         - otuken.io
+  #   version: 2
+
+  ssh:
+    install-server: yes
+    allow-pw: yes
+    authorized-keys: []
+
+  packages:
+    - sudo
+    - qemu-guest-agent
+
+  identity:
+    hostname: ubuntu-00 # hostname of the system
+    password: $6$jCfWFbdxh1lK09sY$pxFnrW/yXewYFmgoaywu3WKhdPQg0e8DR8jvedAV.udXM0.i5M6wr4Up2S7ZCN9kNDmg.s7fmrOaXE6nEyzPb/ # Welcome123
+    username: ubuntu # root doesn't work
+
+  storage:
+    layout:
+      name: lvm
+    swap:
+      size: 0
+
+  user-data:
+    disable_root: false
+    package_upgrade: false
+    timezone: Europe/Berlin
+    users:
+      - name: ubuntu
+        groups: [adm, sudo]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
